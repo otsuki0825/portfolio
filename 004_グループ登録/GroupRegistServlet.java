@@ -21,21 +21,25 @@ public class GroupRegistServlet extends HttpServlet {
    	protected void doPost(HttpServletRequest request, HttpServletResponse response)
    			throws ServletException, IOException {
    		request.setCharacterEncoding("UTF-8");
-		String gpName = request.getParameter("gpName");
+		String groupName = request.getParameter("groupName");
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
+		TrainingDao dao = new TrainingDao();
+		List<Training> groupList = dao.searchGroup(id);
+		int groupId = groupList.size();
+		groupId += 1;
 
-		if(gpName == "") {
+
+		if(groupName == "") {
 			request.setAttribute("ng", "グループ名を入力してください");
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/groupRegist.jsp");
 			rd.forward(request, response);
 		}else {
-	        TrainingDao dao = new TrainingDao();
-	        dao.newGroupRegist(id, gpName);
+	        dao.newGroupRegist(id, groupId, groupName);
 
-	        List<Training> gpList = dao.searchGroup(id);
-			session.setAttribute("gpList", gpList);
+	        groupList = dao.searchGroup(id);
+			session.setAttribute("groupList", groupList);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
 			rd.forward(request, response);

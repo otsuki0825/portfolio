@@ -54,10 +54,6 @@ for (let row of table.rows) {
 		}
 	}
 }
-
-console.log(label2);
-console.log(label3);
-
 const myChart = new Chart(canvas, {
 	type: 'bar',
     data: {

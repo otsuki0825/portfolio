@@ -34,15 +34,15 @@
 
 <div class="mx-auto p-2" style="width: 400px;">
  <%
-    List<Training> gpList = (List<Training>)session.getAttribute("gpList");
-    if(gpList != null){
-        for(int i = 0; i < gpList.size(); i++){
-        	Training tr = gpList.get(i);
+    List<Training> groupList = (List<Training>)session.getAttribute("groupList");
+    if(groupList != null){
+        for(int i = 0; i < groupList.size(); i++){
+        	Training tr = groupList.get(i);
  %>
  <form action="/trainingManager/EventSearchServlet" method="post" >
   <div class="row g-3">
    <div class="col">
-      <input type="text" readonly class="form-control-plaintext form-control-lg" id="staticEmail" value="<%=tr.getGroupName()%>" name="gpName">
+      <input type="text" readonly class="form-control-plaintext form-control-lg" id="staticEmail" value="<%=tr.getGroupName()%>" name="groupName">
    </div>
    <div class="col">
       <input type="submit" class="btn btn-outline-primary" value="詳細">

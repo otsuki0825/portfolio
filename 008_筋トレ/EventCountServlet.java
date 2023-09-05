@@ -22,7 +22,7 @@ public class EventCountServlet extends HttpServlet {
  		request.setCharacterEncoding("UTF-8");
 
  		HttpSession session = request.getSession();
- 		List<Training> eList = (List<Training>)session.getAttribute("eList");
+ 		List<Training> eventList = (List<Training>)session.getAttribute("eventList");
  		String eventCountS = (String)session.getAttribute("eventCount");
  		String setsS = (String)session.getAttribute("sets");
  		int eventCount = Integer.parseInt(eventCountS);
@@ -31,7 +31,7 @@ public class EventCountServlet extends HttpServlet {
  		eventCount += 1;
  		sets = 0;
 
- 		if(eventCount < eList.size()){
+ 		if(eventCount < eventList.size()){
 	 		eventCountS = String.valueOf(eventCount);
 	 		setsS = String.valueOf(sets);
 

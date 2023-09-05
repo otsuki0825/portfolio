@@ -23,27 +23,28 @@ public class EventSearchServlet2 extends HttpServlet {
 
 			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
-			String gpName = request.getParameter("key");
+			String groupName = request.getParameter("key");
 			String id = (String)session.getAttribute("id");
 
 	        TrainingDao dao = new TrainingDao();
-	        List<Training> eList2 = dao.searchEvent(id,gpName);
+			int groupId = dao.searchGroupId(id,groupName);
+	        List<Training> eventrainingList2 = dao.searchEvent(id,groupId);
 	        Training tr = null;
 
-		        for(int i = 0; i < eList2.size(); i++) {
+		        for(int i = 0; i < eventrainingList2.size(); i++) {
 				    tr = new Training();
-				    tr = eList2.get(i);
-		         	String evName = tr.getEventName();
-		         	if(evName.equals("")) {
-		         		dao.deleteeGroupByeventName(id, evName);
+				    tr = eventrainingList2.get(i);
+		         	String eventName = tr.getEventName();
+		         	if(eventName.equals("")) {
+		         		dao.deleteeGroupByeventName(id, eventName);
 		         	}
 		         }
-	        List<Training> tList = dao.reportAllByIdAndGpName(id,gpName);
+	        List<Training> trainingList = dao.trainingListByIdAndGroupId(id,groupId);
 
-	        eList2 = dao.searchEvent(id, gpName);
-			session.setAttribute("eList2", eList2);
-			session.setAttribute("tList", tList);
-			session.setAttribute("gpName", gpName);
+	        eventrainingList2 = dao.searchEvent(id, groupId);
+			session.setAttribute("eventrainingList2", eventrainingList2);
+			session.setAttribute("trainingList", trainingList);
+			session.setAttribute("groupName", groupName);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/report2.jsp");
 			rd.forward(request, response);

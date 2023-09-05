@@ -29,10 +29,10 @@ public class LoginServlet extends HttpServlet {
 		Training tr = dao.searchUser(id, password);
         try {
 			if(tr.getId().equals(id) && tr.getPassword().equals(password)){
-                List<Training> gpList = dao.searchGroup(id);
+                List<Training> groupList = dao.searchGroup(id);
 
 				HttpSession session = request.getSession();
-				session.setAttribute("gpList", gpList);
+				session.setAttribute("groupList", groupList);
 				session.setAttribute("id", id);
 
 				RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");

@@ -28,7 +28,7 @@
 %>
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">グループ名</label>
-		  <input type="text" class="form-control" name="gpName" id="exampleFormControlInput1">
+		  <input type="text" class="form-control" name="groupName" id="exampleFormControlInput1">
 		</div>
            <input type="submit" class="btn btn-outline-primary" value="登録">
         <br>

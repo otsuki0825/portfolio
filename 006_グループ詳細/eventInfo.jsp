@@ -32,8 +32,8 @@
 <form action="/trainingManager/EventSearchServlet" method="post" >
 <div class="mx-auto p-2" style="width: 300px;">
     <%
-    String gpName = (String)session.getAttribute("gpName");
-    List<Training> eList = (List<Training>)session.getAttribute("eList");
+    String groupName = (String)session.getAttribute("groupName");
+    List<Training> eventList = (List<Training>)session.getAttribute("eventList");
     String ng = (String)request.getAttribute("ng");
     if(ng != null){
     %>
@@ -43,11 +43,11 @@
     <%
     }
     %>
-     <p class="fw-bold fs-2"><%=gpName %></p>
+     <p class="fw-bold fs-2"><%=groupName %></p>
     <%
-    if(eList != null){
-        for(int i = 0; i < eList.size(); i++){
-        	Training tr = eList.get(i);
+    if(eventList != null){
+        for(int i = 0; i < eventList.size(); i++){
+        	Training tr = eventList.get(i);
         	if(tr.getEventName() == ""){
         		break;
         	}

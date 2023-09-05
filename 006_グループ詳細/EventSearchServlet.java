@@ -22,26 +22,28 @@ public class EventSearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
-			 List<Training> gpList = (List<Training>)session.getAttribute("gpList");
-				String gpName = request.getParameter("gpName");
+			 List<Training> groupList = (List<Training>)session.getAttribute("groupList");
+				String groupName = request.getParameter("groupName");
 				String id = (String)session.getAttribute("id");
 
-				session.setAttribute("gpName", gpName);
-
 		        TrainingDao dao = new TrainingDao();
-		        List<Training> eList = dao.searchEvent(id,gpName);
-		        Training tr = null;
+		        Training tr = new Training();
+		        int groupId = dao.searchGroupId(id, groupName);
+		        List<Training> eventList = dao.searchEvent(id, groupId);
 
-		        for(int i = 0; i < eList.size(); i++) {
+		        for(int i = 0; i < eventList.size(); i++) {
 				    tr = new Training();
-				    tr = eList.get(i);
-		         	String evName = tr.getEventName();
-		         	if(evName.equals("")) {
-		         		dao.deleteeGroupByeventName(id, evName);
+				    tr = eventList.get(i);
+		         	String eventName = tr.getEventName();
+		         	if(eventName.equals("")) {
+		         		dao.deleteeGroupByeventName(id, eventName);
 		         	}
 		         }
-		        eList = dao.searchEvent(id, gpName);
-				session.setAttribute("eList", eList);
+		        eventList = dao.searchEvent(id, groupId);
+				session.setAttribute("eventList", eventList);
+				session.setAttribute("groupName", groupName);
+				String groupIdS = String.valueOf(groupId);
+				session.setAttribute("groupId", groupIdS);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/eventInfo.jsp");
 			rd.forward(request, response);

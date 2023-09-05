@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import Dao.TrainingDao;
 import entity.Training;
 
-@WebServlet("/GpListServlet")
-public class GpListServlet extends HttpServlet {
+@WebServlet("/GroupListServlet")
+public class GroupListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -24,18 +24,18 @@ public class GpListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		TrainingDao dao = new TrainingDao();
-		List<Training> gpList = dao.searchGroup(id);
+		List<Training> groupList = dao.searchGroup(id);
 		Training tr = null;
 
-		 for(int i = 0; i < gpList.size(); i++) {
+		 for(int i = 0; i < groupList.size(); i++) {
 			    tr = new Training();
-	         	String gpName = tr.getGroupName();
-	         	if(gpName == "") {
-	         		dao.deleteeGroup(id, gpName);
+	         	String groupName = tr.getGroupName();
+	         	if(groupName == "") {
+	         		dao.deleteeGroup(id, groupName);
 	         	}
 	     }
-		 gpList = dao.searchGroup(id);
-		 session.setAttribute("gpList", gpList);
+		 groupList = dao.searchGroup(id);
+		 session.setAttribute("groupList", groupList);
 
 		 RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
 			rd.forward(request, response);

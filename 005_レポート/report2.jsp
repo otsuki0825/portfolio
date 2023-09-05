@@ -41,10 +41,10 @@
  <div class="col-lg-2 px-lg-12">
   <ul class="nav flex-column">
 <%
- List<Training> gpList = (List<Training>)session.getAttribute("gpList");
- if(gpList != null){
-    for(int i = 0; i < gpList.size(); i++){
-   	    Training tr = gpList.get(i);
+ List<Training> groupList = (List<Training>)session.getAttribute("groupList");
+ if(groupList != null){
+    for(int i = 0; i < groupList.size(); i++){
+   	    Training tr = groupList.get(i);
 %>
    <li class="nav-item">
     <input type="submit" class="btn btn-light d-flex align-items-center gap-2" form="gp" name="key" value="<%=tr.getGroupName()%>">
@@ -65,10 +65,10 @@
           </button>
          <ul class="dropdown-menu">
 <%
- List<Training> eList2 = (List<Training>)session.getAttribute("eList2");
- if(eList2 != null){
-    for(int i = 0; i < eList2.size(); i++){
-    	Training tr = eList2.get(i);
+ List<Training> eventrainingList2 = (List<Training>)session.getAttribute("eventrainingList2");
+ if(eventrainingList2 != null){
+    for(int i = 0; i < eventrainingList2.size(); i++){
+    	Training tr = eventrainingList2.get(i);
 %>
             <li>
              <a class="dropdown-item" href="/trainingManager/trainingSearchServlet?key2=<%=tr.getEventName() %>"><%=tr.getEventName() %>
@@ -102,10 +102,10 @@
           </thead>
            <tbody id ="targetTable">
 <%
- List<Training> tList = (List<Training>)session.getAttribute("tList");
- if(tList != null){
-    for(int i = 0; i < tList.size(); i++){
-    	Training tr = tList.get(i);
+ List<Training> trainingList = (List<Training>)session.getAttribute("trainingList");
+ if(trainingList != null){
+    for(int i = 0; i < trainingList.size(); i++){
+    	Training tr = trainingList.get(i);
 %>
             <tr>
               <td scope="row"><%=tr.getDt() %></td>

@@ -23,13 +23,15 @@ public class trainingSearchServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String gpName = (String)session.getAttribute("gpName");
-		String evName = request.getParameter("key2");
+		String eventName = request.getParameter("key2");
 		String id = (String)session.getAttribute("id");
+		String groupName = (String)session.getAttribute("groupName");
 
 	    TrainingDao dao = new TrainingDao();
-	    List<Training> tList = dao.reportAllByeventName(id,gpName,evName);
-	    session.setAttribute("tList", tList);
+	    int groupId = dao.searchGroupId(id, groupName);
+	    int eventId = dao.searchEventId(id,groupId,eventName);
+	    List<Training> trainingList = dao.reportAllByEventName(id,groupId,eventId);
+	    session.setAttribute("trainingList", trainingList);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/report2.jsp");
 		rd.forward(request, response);

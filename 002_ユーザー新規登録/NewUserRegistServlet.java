@@ -22,11 +22,17 @@ public class NewUserRegistServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 
-        TrainingDao dao = new TrainingDao();
-        dao.newUserRegist(id, password);
+		if(id ==""|| password == "") {
+			request.setAttribute("NgNewUser", "IDまたはパスワードを入力してください");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/newUserRegist.jsp");
+			rd.forward(request, response);
+		}else {
+	        TrainingDao dao = new TrainingDao();
+	        dao.newUserRegist(id, password);
 
-        request.setAttribute("newUser", "新規登録しました。");
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/login.jsp");
-		rd.forward(request, response);
+	        request.setAttribute("newUser", "新規登録しました。");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/login.jsp");
+			rd.forward(request, response);
+		}
 	}
 }

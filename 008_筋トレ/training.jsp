@@ -34,10 +34,10 @@
     int eventCount = 0;
     String eventCountS = (String)session.getAttribute("eventCount");
     String setsS = (String)session.getAttribute("sets");
-    String gpName = (String)session.getAttribute("gpName");
+    String groupName = (String)session.getAttribute("groupName");
     String ng = (String)request.getAttribute("ng");
-    List<Training> eList = (List<Training>)session.getAttribute("eList");
-    if((eList.isEmpty())){
+    List<Training> eventList = (List<Training>)session.getAttribute("eventList");
+    if((eventList.isEmpty())){
     	request.setAttribute("ng", "種目を登録してください");
 
     	RequestDispatcher rd = request.getRequestDispatcher("/jsp/eventInfo.jsp");
@@ -45,7 +45,7 @@
     }else{
 %>
 <div class="mx-auto p-2" style="width: 300px;">
-	 <p class="fw-bold fs-2"><%=gpName %></p>
+	 <p class="fw-bold fs-2"><%=groupName %></p>
 <%
      if(ng != null){
 %>
@@ -64,7 +64,7 @@
     	}
     	session.setAttribute("sets", setsS);
     	session.setAttribute("eventCount", eventCountS);
-       	Training tr = eList.get(eventCount);
+       	Training tr = eventList.get(eventCount);
        	session.setAttribute("eventName", tr.getEventName());
 %>
         <p class="fs-4">・<%=tr.getEventName() %></p><br>
@@ -105,7 +105,7 @@
        		eventCountS = "0";
        	   }
        	   session.setAttribute("eventCount", eventCountS);
-	        	Training tr = eList.get(eventCount);
+	        	Training tr = eventList.get(eventCount);
 	        	session.setAttribute("eventName", tr.getEventName());
 %>
 	     		<p class="fs-4">・<%=tr.getEventName() %></p><br>

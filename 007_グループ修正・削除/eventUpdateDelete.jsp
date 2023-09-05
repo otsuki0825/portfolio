@@ -33,27 +33,27 @@
 <div class="mx-auto p-2" style="width: 300px;">
  <%
     int add = 5;
-    String gpName = (String)session.getAttribute("gpName");
-    List<Training> eList = (List<Training>)session.getAttribute("eList");
+    String groupName = (String)session.getAttribute("groupName");
+    List<Training> eventList = (List<Training>)session.getAttribute("eventList");
     %>
-     <p class="fw-bold fs-2"><%=gpName %></p>
+     <p class="fw-bold fs-2"><%=groupName %></p>
     <%
-    if(!eList.isEmpty()){
-        for(int i = 0; i < eList.size(); i++){
-        	 Training tr = eList.get(i);
+    if(!eventList.isEmpty()){
+        for(int i = 0; i < eventList.size(); i++){
+        	 Training tr = eventList.get(i);
         	 if(tr != null){
     %>
 			   <div class="mb-3">
-	           <input type="text" class="form-control" name="evName1" value="<%=tr.getEventName() %>" form="evName1" id="testText1">
-	           <input type="hidden" class="form-control" name="evName2" value="<%=tr.getEventName() %>" form="evName2" id="testText2">
+	           <input type="text" class="form-control" name="eventName1" value="<%=tr.getEventName() %>" form="eventName1" id="testText1">
+	           <input type="hidden" class="form-control" name="eventName2" value="<%=tr.getEventName() %>" form="eventName2" id="testText2">
 	           </div>
 
     <%
         	 }else{
      %>
 			   <div class="mb-3">
-	            <input type="text" class="form-control" name="evName1" form="evName1" id="testText1">
-	            <input type="hidden" class="form-control" name="evName2" form="evName2" id="testText2">
+	            <input type="text" class="form-control" name="eventName1" form="eventName1" id="testText1">
+	            <input type="hidden" class="form-control" name="eventName2" form="eventName2" id="testText2">
 	           </div>
     <%
         	}
@@ -64,8 +64,8 @@
     	 for(int i = 0; i < add; i++){
     %>
 	           <div class="mb-3">
-	            <input type="text" class="form-control" name="evName1" form="evName1" id="testText1">
-	            <input type="hidden" class="form-control" name="evName2" form="evName2" id="testText2">
+	            <input type="text" class="form-control" name="eventName1" form="eventName1" id="testText1">
+	            <input type="hidden" class="form-control" name="eventName2" form="eventName2" id="testText2">
 	           </div>
     <%
     	 }
@@ -74,12 +74,12 @@
     <br>
     <div class="row g-2">
      <div class="col-sm">
-      <form action="/trainingManager/EventUpdateDeleteServlet" method="post"id="evName1">
+      <form action="/trainingManager/EventUpdateDeleteServlet" method="post"id="eventName1">
        <input type="submit" class="btn btn-outline-primary" value="変更">
       </form>
      </div>
      <div class="col-sm-3">
-      <form action="/trainingManager/TextboxAddServlet" method="post"id="evName2">
+      <form action="/trainingManager/TextboxAddServlet" method="post"id="eventName2">
        <input type="submit" class="btn btn-outline-success" value="Box追加" >
       </form>
      </div>

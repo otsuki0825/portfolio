@@ -22,16 +22,16 @@ public class DeleteGroupServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String gpName =(String)session.getAttribute("gpName");
+		String groupName =(String)session.getAttribute("groupName");
         String id = (String)session.getAttribute("id");
 
 		TrainingDao dao = new TrainingDao();
-		dao.deletetGroup(id, gpName);
-		dao.deleteeGroup(id ,gpName);
+		dao.deletetGroup(id, groupName);
+		dao.deleteeGroup(id ,groupName);
 
-		List<Training> gpList = dao.searchGroup(id);
+		List<Training> groupList = dao.searchGroup(id);
 
-		session.setAttribute("gpList", gpList);
+		session.setAttribute("groupList", groupList);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
 		rd.forward(request, response);

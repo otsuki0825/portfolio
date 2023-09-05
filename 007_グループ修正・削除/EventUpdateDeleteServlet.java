@@ -22,24 +22,26 @@ public class EventUpdateDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		List<Training> eList = (List<Training>)session.getAttribute("eList");
-		String gpName = (String)session.getAttribute("gpName");
+		List<Training> eventList = (List<Training>)session.getAttribute("eventList");
+		String groupName = (String)session.getAttribute("groupName");
+		String groupIdS = (String)session.getAttribute("groupId");
+		int groupId = Integer.parseInt(groupIdS);
 		String addS = (String)session.getAttribute("add");
 		String id = (String)session.getAttribute("id");
 		int add = 5;
 		if(addS != null ) {
 			add = Integer.parseInt(addS);
 		}
-        String[]  newEList = request.getParameterValues("evName1");
+        String[] newEventList = request.getParameterValues("eventName1");
         TrainingDao dao = new TrainingDao();
 		Training tr = null;
 		//種目登録がされていた場合
-		if(!(eList.isEmpty())){
+		if(!(eventList.isEmpty())){
 			//テキストボックスの値を更新リストに格納
 
 			//新しい種目の数、更新前の種目の数、その差分を格納
-			int num1 = newEList.length;
-			int num2 = eList.size();
+			int num1 =newEventList.length;
+			int num2 = eventList.size();
 			int num3 = 0;
 			if(num1 > num2) {
 				num3 = num1 - num2;
@@ -48,41 +50,42 @@ public class EventUpdateDeleteServlet extends HttpServlet {
 			for(int i = 0; i < num3; i++) {
 				tr = new Training();
 				tr.setEventName("");
-				eList.add(tr);
+				eventList.add(tr);
 			}
 			//更新リストと更新前リストを比較して差があれば、更新
 			for(int i = 0; i < num1; i++) {
 				tr = new Training();
-				tr = eList.get(i);
-				String newEvName = newEList[i];
-				String evName = tr.getEventName();
+				tr = eventList.get(i);
+				int newEventId = i + 1;
+				String newEventName =newEventList[i];
+				int eventId = tr.getEventId();
+				String eventName = tr.getEventName();
 				//更新リストに値がある場合
-				if(newEvName != "") {
+				if(newEventName != "") {
 					//更新リストに値があるが、更新前リストに値がない場合
-					if(evName == "") {
-						dao.eventNameGRegist(id,gpName, newEvName);
+					if(eventName == "") {
+						dao.eventNameEventTableRegist(id, groupId, newEventId, newEventName);
 					//更新リストと更新前リストがちがう場合
-					}else if (!(newEvName.equals(evName))){
-						dao.eventNameEUpdate(id, evName,newEvName);
-						dao.eventNameGUpdate(id, evName,newEvName);
+					}else if (!(newEventName.equals(eventName))){
+						dao.eventNameEventTableUpdate(id, eventId, eventName, newEventId, newEventName);
 				    }
 				//更新前リストに値があるが、更新リストに値がない場合
-				}else if(evName != "") {
-					dao.eventNameEUpdate(id,evName,newEvName);
-					dao.eventNameGUpdate(id,evName,newEvName);
+				}else if(eventName != "") {
+					dao.eventNameEventTableUpdate(id, eventId, eventName, newEventId, newEventName);
 				}
 			}
 		//種目が登録されていない場合、
 		}else{
 			//更新リストの種目を登録していく
 			for(int i = 0; i < add; i++) {
-				String newEvName = newEList[i];
-				if(!(newEvName.equals(""))) {
-					dao.eventNameGRegist(id, gpName, newEvName);
+				String newEventName =newEventList[i];
+				int newEventId = i + 1;
+				if(!(newEventName.equals(""))) {
+					dao.eventNameEventTableRegist(id, groupId, newEventId, newEventName);
 				}
 			}
 		}
-		session.setAttribute("eList", eList);
+		session.setAttribute("eventList", eventList);
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/home.jsp");
 		rd.forward(request, response);
 	}

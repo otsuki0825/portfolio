@@ -22,24 +22,24 @@ public class TextboxAddServlet extends HttpServlet {
 
 			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
-			List<Training> eList = (List<Training>)session.getAttribute("eList");
-	        String[]  newEList = request.getParameterValues("evName2");
+			List<Training> eventList = (List<Training>)session.getAttribute("eventList");
+	        String[]  newEventList = request.getParameterValues("eventName2");
 
-	        if(!(eList.isEmpty())){
+	        if(!(eventList.isEmpty())){
 				Training tr = null;
-				for(int i = 0; i < newEList.length; i++) {
+				for(int i = 0; i < newEventList.length; i++) {
 					tr = new Training();
-					String newEvName = newEList[i];
-					tr.setEventName(newEvName);
-					eList.set(i,tr);
+					String newEventName = newEventList[i];
+					tr.setEventName(newEventName);
+					eventList.set(i,tr);
 				}
 				for(int i = 0; i < 3; i++) {
 					tr = new Training();
 					tr.setEventName("");
-					eList.add(tr);
+					eventList.add(tr);
 				}
 			}
-	        session.setAttribute("eList", eList);
+	        session.setAttribute("eventList", eventList);
 			RequestDispatcher rd = request.getRequestDispatcher("/jsp/eventUpdateDelete.jsp");
 			rd.forward(request, response);
 	}
